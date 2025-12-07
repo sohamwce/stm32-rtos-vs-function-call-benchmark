@@ -39,7 +39,7 @@ Workload: Burn_1us() → deterministic 1 µs busy-wait based on CPU cycles.
 
 -------------------------------------------------------------------------------------------------------------------
 
-#3. Measurement Logic Overview
+## 3. Measurement Logic Overview
 Goal:
 Measure how many “task cycles” are completed in exactly 1 second.
 Each “task cycle” = 1 µs of work.
@@ -126,8 +126,10 @@ Leaves final values visible to debugger
 
 <img width="1296" height="210" alt="Screenshot from 2025-12-07 22-30-51" src="https://github.com/user-attachments/assets/e2cd4ada-ea77-4555-b2fa-7af9005cec82" />
 
-> ** rtos_call_count = 372900
-> ** function call count = 751334
+ 
+ rtos_call_count = 372900
+ 
+ function call count = 751334
 
 Where:
 
@@ -164,10 +166,15 @@ The difference quantifies the real scheduling cost on STM32.
 -------------------------------------------------------------------------------------------------------------------
 
 ## 10. Repository Structure:
+
 /Core/Src/main.c        -> Benchmark logic (modified)
+
 DWT_Init(), Burn_1us()  -> Timing helpers (added)
+
 run_function_call_test  -> Cooperative baseline (added)
+
 StartTask_*             -> RTOS workers (added)
+
 MonitorTask             -> RTOS test controller (added)
 
 -------------------------------------------------------------------------------------------------------------------
@@ -175,7 +182,11 @@ MonitorTask             -> RTOS test controller (added)
 ## 11. How to Run
 
 1.Flash program onto STM32 Nucleo.
+
 2.Start debugger.
+
 3.Wait for MonitorTask to finish (program stays in infinite loop).
+
 4.Observe function_call_count and rtos_call_count in Live Expressions.
+
 5.Compare values → lower RTOS count = higher switching overhead.
