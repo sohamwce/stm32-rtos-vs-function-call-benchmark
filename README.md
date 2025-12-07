@@ -140,7 +140,7 @@ Registers are saved/restored on every context switch
 All of this adds real CPU overhead.
 
 
-## 9. Conclusion (Short & Simple)
+## 9. Conclusion
 
 This project measures how much time the RTOS scheduler consumes by comparing a pure function-call approach 
 with a real context-switching approach using two equal-priority tasks. 
