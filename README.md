@@ -22,8 +22,8 @@ Baseline: Simulate task switching without RTOS → using normal function calls (
 
 RTOS test: Use two real RTOS threads that repeatedly do 1 µs of work and then yield (syscall).
 
-Compare the throughput.
---------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------
 
 ## 2. Hardware / OS Setup
 
