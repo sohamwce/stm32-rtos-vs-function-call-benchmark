@@ -1,9 +1,5 @@
-# STM32 RTOS Context Switching vs Function-Call Benchmark
+# STM32 RTOS Context Switching vs Function-Call Benchmark (CMSIS-RTOS2 on STM32G4 Nucleo)
 
-
-(CMSIS-RTOS2 on STM32G4 Nucleo)
-
----------------------------------------------------------------------------------------------------------------------
 
 ## 1. Problem Statement 
 
@@ -22,9 +18,6 @@ Baseline: Simulate task switching without RTOS → using normal function calls (
 
 RTOS test: Use two real RTOS threads that repeatedly do 1 µs of work and then yield (syscall).
 
-
-------------------------------------------------------------------------------------------------------------------
-
 ## 2. Hardware / OS Setup
 
 Board: STM32 Nucleo-G491RE (Cortex-M4F @ 170 MHz).
@@ -37,14 +30,12 @@ Timing Source: DWT cycle counter → gives cycle-accurate microsecond timing.
 
 Workload: Burn_1us() → deterministic 1 µs busy-wait based on CPU cycles.
 
--------------------------------------------------------------------------------------------------------------------
 
 ## 3. Measurement Logic Overview
 Goal:
 Measure how many “task cycles” are completed in exactly 1 second.
 Each “task cycle” = 1 µs of work.
 
--------------------------------------------------------------------------------------------------------------------
 
 ## 4. Two Tests Performed
 
@@ -63,7 +54,6 @@ Thread 2: run 1 µs → increment counter → osThreadYield()
 RTOS performs a syscall-based context switch on every iteration.
 This gives us the real cost of RTOS scheduler overhead.
 
------------------------------------------------------------------------------------------------------------------
 
 ## 5. Why We Increment Twice in the Cooperative Test?
 Because the cooperative test is meant to simulate two tasks, but without using RTOS.
@@ -82,7 +72,6 @@ Both methods do 2 task units per switching cycle
 If we only incremented once, the cooperative method would artificially look faster.
 Thus, incrementing twice keeps the comparison fair and symmetric.
 
-------------------------------------------------------------------------------------------------------------------
 
 ## 6. What Additional Code We Added
 6.1 DWT Initialization
@@ -119,7 +108,6 @@ Terminates workers safely
 
 Leaves final values visible to debugger
 
-------------------------------------------------------------------------------------------------------------------
 
 ## 7. Live Expressions (Debugger Screenshot Placeholder)
 
@@ -137,7 +125,6 @@ function_call_count > rtos_call_count
 
 The difference = RTOS scheduler overhead
 
-----------------------------------------------------------------------------------------------------------------
 
 ## 8. Observed Outcome
 As expected:
@@ -152,7 +139,6 @@ Scheduler selects next task
 Registers are saved/restored on every context switch
 All of this adds real CPU overhead.
 
--------------------------------------------------------------------------------------------------------------------
 
 ## 9. Conclusion (Short & Simple)
 
@@ -162,8 +148,6 @@ The cooperative method gives the maximum possible throughput, and
 the RTOS method shows reduced throughput because of syscall + context switch overhead. 
 The difference quantifies the real scheduling cost on STM32.
 
-
--------------------------------------------------------------------------------------------------------------------
 
 ## 10. Repository Structure:
 
@@ -177,7 +161,6 @@ StartTask_*             -> RTOS workers (added)
 
 MonitorTask             -> RTOS test controller (added)
 
--------------------------------------------------------------------------------------------------------------------
 
 ## 11. How to Run
 
