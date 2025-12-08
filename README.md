@@ -3,9 +3,9 @@
 
 ## 1. Problem Statement 
 
-We want to measure how much overhead the RTOS scheduler adds compared to running the same work without the RTOS.
+To measure how much overhead the RTOS scheduler adds compared to running the same work without the RTOS.
 
-The requirement (from the question’s frame):
+The requirement:
 
 Two tasks of equal priority do 1 microsecond of work.
 They switch continuously for 1 second.
@@ -59,10 +59,10 @@ This gives us the real cost of RTOS scheduler overhead.
 Because the cooperative test is meant to simulate two tasks, but without using RTOS.
 
 So in the baseline we do:
-Burn_1us();  // Logical Task A
+Burn_1us();                              // Logical Task A
 function_call_count++;
 
-Burn_1us();  // Logical Task B
+Burn_1us();                              // Logical Task B
 function_call_count++;
 
 This ensures:
@@ -75,8 +75,6 @@ Thus, incrementing twice keeps the comparison fair and symmetric.
 
 ## 6. What Additional Code We Added
 6.1 DWT Initialization
-
-We added:
 
 DWT_Init() — to enable cycle counter
 
@@ -109,7 +107,7 @@ Terminates workers safely
 Leaves final values visible to debugger
 
 
-## 7. Live Expressions (Debugger Screenshot Placeholder)
+## 7. Live Expressions
 
 
 <img width="1296" height="210" alt="Screenshot from 2025-12-07 22-30-51" src="https://github.com/user-attachments/assets/e2cd4ada-ea77-4555-b2fa-7af9005cec82" />
@@ -142,7 +140,7 @@ All of this adds real CPU overhead.
 
 ## 9. Conclusion
 
-This project measures how much time the RTOS scheduler consumes by comparing a pure function-call approach 
+ measures how much time the RTOS scheduler consumes by comparing a pure function-call approach 
 with a real context-switching approach using two equal-priority tasks. 
 The cooperative method gives the maximum possible throughput, and 
 the RTOS method shows reduced throughput because of syscall + context switch overhead. 
